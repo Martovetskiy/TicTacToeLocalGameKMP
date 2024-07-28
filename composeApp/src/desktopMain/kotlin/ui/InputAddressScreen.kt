@@ -7,8 +7,6 @@ import androidx.compose.material.icons.outlined.ArrowBack
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
 import components.InputAddressScreenComponent
 
 @Composable
