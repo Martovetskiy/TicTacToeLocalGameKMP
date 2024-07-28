@@ -1,3 +1,4 @@
+@file:Suppress("FunctionName")
 
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.*
