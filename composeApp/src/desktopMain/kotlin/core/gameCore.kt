@@ -59,7 +59,7 @@ class GameCore (
             isActive.value = false
             return true
         }
-        if (table.all { it -> it.all {iter -> iter != -1 }})
+        if (table.all { it.all {iter -> iter != -1 }})
         {
             _winner.value = -1
             isActive.value = false

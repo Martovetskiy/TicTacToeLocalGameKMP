@@ -6,7 +6,7 @@ import com.arkivanov.decompose.ComponentContext
 
 class InputAddressScreenComponent(
     componentContext: ComponentContext,
-    private val text: String,
+    text: String,
     private val onGoClient: (String, Int) -> Unit,
     private val onGoBack: () -> Unit
 ) : ComponentContext by componentContext {

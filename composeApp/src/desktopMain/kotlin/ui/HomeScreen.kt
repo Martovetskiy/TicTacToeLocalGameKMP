@@ -1,3 +1,5 @@
+@file:Suppress("FunctionName")
+
 package ui
 
 import androidx.compose.foundation.layout.Arrangement
