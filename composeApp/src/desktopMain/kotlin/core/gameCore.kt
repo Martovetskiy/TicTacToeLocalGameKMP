@@ -97,12 +97,15 @@ class GameCore (
     }
 
     fun connectGame(host: String, port: Int) {
+        serverInfo.value = "Try Connecting..."
         try {
             client = Socket(host, port)
         }
         catch (e: Exception) {
             onClientClose()
+            return
         }
+        serverInfo.value = "TicTacToe"
         sender = PrintWriter(client.getOutputStream(), true)
         reader = BufferedReader(InputStreamReader(client.getInputStream()))
 

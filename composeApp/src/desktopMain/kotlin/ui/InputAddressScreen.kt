@@ -1,3 +1,5 @@
+@file:Suppress("FunctionName")
+
 package ui
 
 import androidx.compose.foundation.layout.*
@@ -45,11 +47,13 @@ fun InputAddressScreen(component: InputAddressScreenComponent){
                     component.port.value = it
                 })
 
-                Button(onClick = {
+                Button(
+                    enabled = component.port.value.toIntOrNull() != null,
+                    onClick = {
                     component.goClient()
                 })
                 {
-                    Text("Anon")
+                    Text("Connect")
                 }
             }
         }
