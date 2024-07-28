@@ -59,6 +59,12 @@ class GameCore (
             isActive.value = false
             return true
         }
+        if (table.all { it -> it.all {iter -> iter != -1 }})
+        {
+            _winner.value = -1
+            isActive.value = false
+            return true
+        }
         return false
     }
 
@@ -84,9 +90,9 @@ class GameCore (
         catch (e: IOException){
             onServerClose()
         }
-        serverInfo.value = "Wait player..."
+        serverInfo.value = "Server: $host:$port\nWait Opponent..."
         client = server.accept()
-        serverInfo.value = "TicTacToe"
+        serverInfo.value = "Opponent: ${client.remoteSocketAddress}"
 
         sender = PrintWriter(client.getOutputStream(), true)
         reader = BufferedReader(InputStreamReader(client.getInputStream()))
@@ -97,15 +103,16 @@ class GameCore (
     }
 
     fun connectGame(host: String, port: Int) {
-        serverInfo.value = "Try Connecting..."
+        serverInfo.value = "Try Connecting to $host:$port"
         try {
             client = Socket(host, port)
         }
         catch (e: Exception) {
+            println(e.message)
             onClientClose()
             return
         }
-        serverInfo.value = "TicTacToe"
+        serverInfo.value = "Opponent: ${client.remoteSocketAddress}"
         sender = PrintWriter(client.getOutputStream(), true)
         reader = BufferedReader(InputStreamReader(client.getInputStream()))
 
@@ -116,14 +123,14 @@ class GameCore (
         sender.println("$x, $y")
         changeTable(x, y, you.value)
         if (checkWinner()){
-           serverInfo.value = "Winner: ${_winner.value}"
+           serverInfo.value = if (_winner.value == -1) "Moderate" else "Winner: ${if (_winner.value == you.value) "You" else "Opponent"}"
             return
         }
         isActive.value = false
         val receive = reader.readLine().split(", ")
         changeTable(receive[0].toInt(), receive[1].toInt(), opponent.value)
         if (checkWinner()){
-            serverInfo.value = "Winner: ${_winner.value}"
+            serverInfo.value = if (_winner.value == -1) "Moderate" else "Winner: ${if (_winner.value == you.value) "You" else "Opponent"}"
             return
         }
         isActive.value=true
