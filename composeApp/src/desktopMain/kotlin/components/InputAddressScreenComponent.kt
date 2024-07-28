@@ -6,6 +6,7 @@ import com.arkivanov.decompose.ComponentContext
 
 class InputAddressScreenComponent(
     componentContext: ComponentContext,
+    private val text: String,
     private val onGoClient: (String, Int) -> Unit,
     private val onGoBack: () -> Unit
 ) : ComponentContext by componentContext {
@@ -15,6 +16,7 @@ class InputAddressScreenComponent(
 
     val address = _address
     val port = _port
+    val textButton = text
 
     fun goClient(){
         onGoClient(_address.value, _port.value.toInt())

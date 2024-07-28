@@ -53,7 +53,7 @@ fun InputAddressScreen(component: InputAddressScreenComponent){
                     component.goClient()
                 })
                 {
-                    Text("Connect")
+                    Text(component.textButton)
                 }
             }
         }

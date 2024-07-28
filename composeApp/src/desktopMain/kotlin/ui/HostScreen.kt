@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import components.HostScreenComponent
 
@@ -37,7 +38,7 @@ fun HostScreen(
                         Icon(Icons.Outlined.ArrowBack, contentDescription = null)
                     }
 
-                    Text(text = component.serverInfo.value)
+                    Text(text = component.serverInfo.value, textAlign = TextAlign.Center)
 
                     IconButton(
                         enabled = false,

@@ -36,19 +36,35 @@ class RootComponent (
                 HomeScreenComponent(
                     componentContext = context,
                     onGoHost = {
-                        navigation.pushNew(Configuration.HostScreen)
+                        navigation.pushNew(Configuration.InputAddressScreenServer)
                     },
                     onGoClient = {
                         navigation.pushNew(Configuration.InputAddressScreen)
                     }
                 )
             )
-            Configuration.HostScreen -> Child.HostScreen(
+
+            Configuration.InputAddressScreenServer -> Child.InputAddressScreen(
+                InputAddressScreenComponent(
+                    componentContext = context,
+                    onGoBack = {
+                        navigation.pop()
+                    },
+                    onGoClient = {address, port ->
+                        navigation.pushNew(Configuration.HostScreen(address, port))
+                    },
+                    text = "Create Server"
+                )
+            )
+
+            is Configuration.HostScreen-> Child.HostScreen(
                 HostScreenComponent(
                     componentContext = context,
                     onGoBack = {
                         navigation.pop()
-                    }
+                    },
+                    address = config.address,
+                    port = config.port
                 )
             )
 
@@ -60,7 +76,8 @@ class RootComponent (
                     },
                     onGoClient = {address, port ->
                         navigation.pushNew(Configuration.ClientScreen(address, port))
-                    }
+                    },
+                    text = "Connect"
                 )
             )
 
@@ -82,12 +99,11 @@ class RootComponent (
 
     sealed class Child {
         data class HomeScreen(val component: HomeScreenComponent) : Child()
-        data class HostScreen(val component: HostScreenComponent) : Child()
         data class InputAddressScreen(val componentContext: InputAddressScreenComponent) : Child()
+        data class InputAddressScreenServer(val componentContext: InputAddressScreenComponent) : Child()
         data class ClientScreen(val componentContext: ClientScreenComponent) : Child()
+        data class HostScreen(val component: HostScreenComponent) : Child()
     }
-
-
 
     @Serializable
     sealed class Configuration {
@@ -95,12 +111,15 @@ class RootComponent (
         data object HomeScreen : Configuration()
 
         @Serializable
-        data object HostScreen : Configuration()
-
-        @Serializable
         data object InputAddressScreen : Configuration()
 
         @Serializable
+        data object InputAddressScreenServer : Configuration()
+
+        @Serializable
         data class ClientScreen(val address: String, val port: Int) : Configuration()
+
+        @Serializable
+        data class HostScreen(val address: String, val port: Int) : Configuration()
     }
 }

@@ -9,6 +9,8 @@ import kotlinx.coroutines.launch
 
 class HostScreenComponent(
     componentContext: ComponentContext,
+    private val address: String,
+    private val port: Int,
     private val onGoBack: () -> Unit
 ) : ComponentContext by componentContext
 {
@@ -28,7 +30,7 @@ class HostScreenComponent(
 
     @OptIn(DelicateCoroutinesApi::class)
     private fun goServer(){
-        GlobalScope.launch{ _game.hostGame(port = 9999)
+        GlobalScope.launch{ _game.hostGame(host = address, port = port)
         }
     }
 

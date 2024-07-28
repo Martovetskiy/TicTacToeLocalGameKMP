@@ -25,6 +25,7 @@ fun App(root: RootComponent) {
             child->
             when(val instance = child.instance){
                 is RootComponent.Child.HomeScreen -> HomeScreen(instance.component)
+                is RootComponent.Child.InputAddressScreenServer -> InputAddressScreen(instance.componentContext)
                 is RootComponent.Child.HostScreen -> HostScreen(instance.component)
                 is RootComponent.Child.InputAddressScreen -> InputAddressScreen(instance.componentContext)
                 is RootComponent.Child.ClientScreen -> ClientScreen(instance.componentContext)
