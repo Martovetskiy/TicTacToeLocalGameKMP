@@ -6,6 +6,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,21 +21,28 @@ import components.HomeScreenComponent
 
 @Composable
 fun HomeScreen(component: HomeScreenComponent){
+    val themeColors = DefaultTheme()
 
     Column (
-        modifier = Modifier.fillMaxSize().background(color = Gray4),
+        modifier = Modifier.fillMaxSize().background(color = themeColors.BackgroundColor),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
 
         Column (
-            modifier = Modifier.background(color = Light, shape = RoundedCornerShape(16.dp)).fillMaxWidth(0.5f),
+            modifier = Modifier.background(color = themeColors.CardColor, shape = RoundedCornerShape(16.dp)).fillMaxWidth(0.5f),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center) {
 
-            Text(modifier = Modifier.padding(bottom = 32.dp, top = 16.dp), text = "Крестки-Нолики", style = TextStyle(fontSize = 36.sp, fontWeight = FontWeight.Bold))
+            Text(modifier = Modifier.padding(bottom = 32.dp, top = 16.dp), text = "Крестки-Нолики", style = TextStyle(fontSize = 36.sp,
+                fontWeight = FontWeight.Bold,
+                color = themeColors.TextColor))
 
             Button(
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = themeColors.Accent,
+                    contentColor = themeColors.Light
+                ),
                 modifier = Modifier.fillMaxWidth(.6f)
                     .height(50.dp),
                 shape = RoundedCornerShape(16.dp),
@@ -46,6 +55,10 @@ fun HomeScreen(component: HomeScreenComponent){
             Spacer(modifier = Modifier.height(8.dp))
 
             Button(
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = themeColors.Accent,
+                    contentColor = themeColors.Light
+                ),
                 modifier = Modifier.fillMaxWidth(.6f)
                     .height(50.dp),
                 shape = RoundedCornerShape(16.dp),
@@ -56,7 +69,8 @@ fun HomeScreen(component: HomeScreenComponent){
             }
 
             Text(modifier = Modifier.padding(16.dp), text = "Выполнено студентами группы ПиБ-232: Боднарь Степан и Тугбаева Эрика",
-                textAlign = TextAlign.Center)
+                textAlign = TextAlign.Center,
+                color = themeColors.TextColor)
         }
     }
 

@@ -19,8 +19,9 @@ import components.InputAddressScreenComponent
 
 @Composable
 fun InputAddressScreen(component: InputAddressScreenComponent){
+    val themeColor = BloodAndWaterTheme()
         Scaffold(
-            backgroundColor = Gray4,
+            backgroundColor = themeColor.BackgroundColor,
             topBar = {
                 Row(modifier = Modifier.statusBarsPadding().fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -52,7 +53,7 @@ fun InputAddressScreen(component: InputAddressScreenComponent){
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ){
-            Column (modifier = Modifier.background(color = Light, shape = RoundedCornerShape(16.dp)).fillMaxWidth(0.5f),
+            Column (modifier = Modifier.background(color = themeColor.CardColor, shape = RoundedCornerShape(16.dp)).fillMaxWidth(0.5f),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally) {
 

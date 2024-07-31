@@ -19,60 +19,57 @@ import components.HostScreenComponent
 fun HostScreen(
     component: HostScreenComponent) {
     val table = component.table
-    Column (
-        modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Scaffold(
-            topBar = {
-                Row(modifier = Modifier.statusBarsPadding().fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically){
-                    IconButton(
-                        onClick = {
-                            component.goBack()
-                        }
-                    )
-                    {
-                        Icon(Icons.AutoMirrored.Outlined.ArrowBack, contentDescription = null)
+    val themeColor = BloodAndWaterTheme()
+    Scaffold(
+        backgroundColor = themeColor.BackgroundColor,
+        topBar = {
+            Row(modifier = Modifier.statusBarsPadding().fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically){
+                IconButton(
+                    onClick = {
+                        component.goBack()
                     }
+                )
+                {
+                    Icon(Icons.AutoMirrored.Outlined.ArrowBack, contentDescription = null)
+                }
 
-                    Text(text = component.serverInfo.value, textAlign = TextAlign.Center)
+                Text(text = component.serverInfo.value, textAlign = TextAlign.Center)
 
-                    IconButton(
-                        enabled = false,
-                        onClick = {}
-                    )
-                    {
-                        Icon(Icons.AutoMirrored.Outlined.ArrowBack, contentDescription = null, tint = Color.Transparent)
-                    }
+                IconButton(
+                    enabled = false,
+                    onClick = {}
+                )
+                {
+                    Icon(Icons.AutoMirrored.Outlined.ArrowBack, contentDescription = null, tint = Color.Transparent)
                 }
             }
-        ) {
-            Column (modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally) {
-                repeat(3) { row ->
-                    Row {
-                        repeat(3) { column ->
-                            Button(enabled = (component.isActive.value && table[row][column] == -1)
-                                ,modifier = Modifier.size(
-                                100.dp
-                            ),
-                                onClick = {
-                                    component.tap(row, column)
-                                }) {
+        }
+    ) {
+        Column (modifier = Modifier.fillMaxSize(),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally) {
+            repeat(3) { row ->
+                Row {
+                    repeat(3) { column ->
+                        Button(enabled = (component.isActive.value && table[row][column] == -1)
+                            ,modifier = Modifier.size(
+                            100.dp
+                        ),
+                            onClick = {
+                                component.tap(row, column)
+                            }) {
 
-                                Text(
-                                    if (table[row][column] == -1) " " else if(table[row][column] == 1) "X" else "0"
+                            Text(
+                                if (table[row][column] == -1) " " else if(table[row][column] == 1) "X" else "0"
 
-                                )
-                            }
+                            )
                         }
                     }
                 }
             }
         }
     }
+
 }
