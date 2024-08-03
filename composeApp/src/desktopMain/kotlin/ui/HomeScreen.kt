@@ -22,7 +22,7 @@ import components.HomeScreenComponent
 
 @Composable
 fun HomeScreen(component: HomeScreenComponent){
-    val themeColors = Theme()
+    val themeColors = PurpleTheme()
 
     Column (
         modifier = Modifier.fillMaxSize().background(color = themeColors.BackgroundColor),
@@ -37,7 +37,7 @@ fun HomeScreen(component: HomeScreenComponent){
 
             Text(modifier = Modifier.padding(bottom = 32.dp, top = 16.dp), text = "Крестки-Нолики", style = TextStyle(fontSize = 36.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color.Red))
+                color = themeColors.TextColor))
 
             Button(
                 colors = ButtonDefaults.buttonColors(
