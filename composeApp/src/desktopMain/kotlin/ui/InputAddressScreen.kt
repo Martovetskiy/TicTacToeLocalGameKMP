@@ -58,14 +58,14 @@ fun InputAddressScreen(component: InputAddressScreenComponent){
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ){
-            Column (modifier = Modifier.background(color = theme.card, shape = RoundedCornerShape(16.dp)).fillMaxWidth(0.5f),
+            Column (modifier = Modifier.background(color = theme.card, shape = RoundedCornerShape(16.dp)).width(400.dp).aspectRatio(1f),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally) {
 
                 OutlinedTextField(
                     isError = (!checkIPAddress(component.address.value) && component.address.value != "localhost") && component.address.value.isNotEmpty(),
-                    modifier = Modifier.fillMaxWidth(.6F)
-                        .padding(top = 32.dp, bottom = 4.dp).height(56.dp),
+                    modifier = Modifier.fillMaxWidth()
+                        .padding(top = 32.dp, bottom = 4.dp).padding(horizontal = 16.dp).height(56.dp),
                     singleLine = true,
                     maxLines = 1,
                     placeholder = { Text(text = "IP адрес") },
@@ -73,12 +73,20 @@ fun InputAddressScreen(component: InputAddressScreenComponent){
                     value = component.address.value,
                     onValueChange = {
                     component.address.value = it
-                })
+                },
+                  colors = TextFieldDefaults.outlinedTextFieldColors(
+                      focusedBorderColor = theme.accent,
+                      cursorColor = Light,
+                      textColor = Light,
+                      backgroundColor = theme.background,
+                      placeholderColor = Light.copy(alpha = 0.6F)
+                  )
+                )
 
                 OutlinedTextField(
                     isError = component.port.value.toIntOrNull() == null && component.port.value.isNotEmpty(),
-                    modifier = Modifier.fillMaxWidth(.6F)
-                        .padding(top = 4.dp, bottom = 16.dp).height(56.dp),
+                    modifier = Modifier.fillMaxWidth()
+                        .padding(top = 4.dp, bottom = 16.dp).height(56.dp).padding(horizontal = 16.dp),
                     singleLine = true,
                     placeholder = { Text(text = "Порт") },
                     maxLines = 1,
@@ -86,11 +94,18 @@ fun InputAddressScreen(component: InputAddressScreenComponent){
                     value = component.port.value,
                     onValueChange = {
                         component.port.value = it
-                    })
+                    },
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        focusedBorderColor = theme.accent,
+                        cursorColor = Light,
+                        textColor = Light,
+                        backgroundColor = theme.background,
+                        placeholderColor = Light.copy(alpha = 0.6F)
+                    ))
 
                 Button(
-                    modifier = Modifier.fillMaxWidth(.6f)
-                        .height(50.dp),
+                    modifier = Modifier.fillMaxWidth()
+                        .height(50.dp).padding(horizontal = 16.dp),
                     shape = RoundedCornerShape(16.dp),
                     enabled = component.port.value.toIntOrNull() != null && (checkIPAddress(component.address.value) || component.address.value == "localhost"),
                     onClick = {
