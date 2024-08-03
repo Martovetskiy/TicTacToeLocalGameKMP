@@ -9,6 +9,8 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -16,12 +18,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import checkIPAddress
 import components.InputAddressScreenComponent
+import readSettings
 
 @Composable
 fun InputAddressScreen(component: InputAddressScreenComponent){
-    val themeColor = BloodAndWaterTheme()
+    val settings = remember{ mutableStateOf(readSettings()) }
+    val theme = settings.value.theme
+    
         Scaffold(
-            backgroundColor = themeColor.BackgroundColor,
+            backgroundColor = theme.background,
             topBar = {
                 Row(modifier = Modifier.statusBarsPadding().fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -53,7 +58,7 @@ fun InputAddressScreen(component: InputAddressScreenComponent){
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ){
-            Column (modifier = Modifier.background(color = themeColor.CardColor, shape = RoundedCornerShape(16.dp)).fillMaxWidth(0.5f),
+            Column (modifier = Modifier.background(color = theme.card, shape = RoundedCornerShape(16.dp)).fillMaxWidth(0.5f),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally) {
 

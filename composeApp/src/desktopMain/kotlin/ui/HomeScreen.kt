@@ -7,42 +7,46 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import changeTheme
 import components.HomeScreenComponent
+import readSettings
 
 @Composable
 fun HomeScreen(component: HomeScreenComponent){
-    val themeColors = PurpleTheme()
 
-    Column (
-        modifier = Modifier.fillMaxSize().background(color = themeColors.BackgroundColor),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+    val settings = remember{ mutableStateOf(readSettings()) }
+    val theme = settings.value.theme
+
+    Box (
+        modifier = Modifier.fillMaxSize().background(color = theme.background),
+        contentAlignment = Alignment.Center
     ) {
 
         Column (
-            modifier = Modifier.background(color = themeColors.CardColor, shape = RoundedCornerShape(16.dp)).fillMaxWidth(0.5f),
+            modifier = Modifier.background(color = theme.card, shape = RoundedCornerShape(16.dp)).fillMaxWidth(0.5f).aspectRatio(1f),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center) {
 
             Text(modifier = Modifier.padding(bottom = 32.dp, top = 16.dp), text = "Крестки-Нолики", style = TextStyle(fontSize = 36.sp,
                 fontWeight = FontWeight.Bold,
-                color = themeColors.TextColor))
+                color = theme.text))
 
             Button(
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor = themeColors.Accent,
-                    contentColor = themeColors.Light
+                    backgroundColor = theme.accent,
+                    contentColor = Light
                 ),
                 modifier = Modifier.fillMaxWidth(.6f)
                     .height(50.dp),
@@ -57,8 +61,8 @@ fun HomeScreen(component: HomeScreenComponent){
 
             Button(
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor = themeColors.Accent,
-                    contentColor = themeColors.Light
+                    backgroundColor = theme.accent,
+                    contentColor = Light
                 ),
                 modifier = Modifier.fillMaxWidth(.6f)
                     .height(50.dp),
@@ -69,10 +73,33 @@ fun HomeScreen(component: HomeScreenComponent){
                 Text("Подключиться")
             }
 
+            //TODO: Create onboarding icon
+            //Image(painter = painterResource(Res.drawable.compose_multiplatform), contentDescription = null)
+
             Text(modifier = Modifier.padding(16.dp), text = "Выполнено студентами группы ПиБ-232: Боднарь Степан и Тугбаева Эрика",
                 textAlign = TextAlign.Center,
-                color = themeColors.TextColor)
+                color = theme.text)
+
         }
+
+            TextButton(
+                modifier = Modifier.align(Alignment.BottomEnd).padding(8.dp),
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = theme.accent,
+                    contentColor = Light
+                ),
+                onClick = {
+                    settings.value = changeTheme(theme)
+            }){
+                Row(verticalAlignment = Alignment.CenterVertically)
+                {
+                Text(text = theme.name)
+                }
+            }
+
     }
 
 }
+
+
+

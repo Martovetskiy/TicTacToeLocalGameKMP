@@ -2,24 +2,29 @@
 
 package ui
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.outlined.ArrowBack
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import components.ClientScreenComponent
+import readSettings
 
 @Composable
 fun ClientScreen(component: ClientScreenComponent){
     val table = component.table
-    val themeColors = BloodAndWaterTheme()
+
+    val settings = remember{ mutableStateOf(readSettings()) }
+    val theme = settings.value.theme
+    
     Scaffold(
-        backgroundColor = themeColors.BackgroundColor,
+        backgroundColor = theme.background,
         topBar = {
             Row(modifier = Modifier.statusBarsPadding().fillMaxWidth(),
                 horizontalArrangement = Arrangement.SpaceBetween,
