@@ -12,6 +12,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -21,7 +22,7 @@ import components.HomeScreenComponent
 
 @Composable
 fun HomeScreen(component: HomeScreenComponent){
-    val themeColors = DefaultTheme()
+    val themeColors = Theme()
 
     Column (
         modifier = Modifier.fillMaxSize().background(color = themeColors.BackgroundColor),
@@ -36,7 +37,7 @@ fun HomeScreen(component: HomeScreenComponent){
 
             Text(modifier = Modifier.padding(bottom = 32.dp, top = 16.dp), text = "Крестки-Нолики", style = TextStyle(fontSize = 36.sp,
                 fontWeight = FontWeight.Bold,
-                color = themeColors.TextColor))
+                color = Color.Red))
 
             Button(
                 colors = ButtonDefaults.buttonColors(
