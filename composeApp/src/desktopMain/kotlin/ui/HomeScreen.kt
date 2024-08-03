@@ -35,7 +35,7 @@ fun HomeScreen(component: HomeScreenComponent){
     ) {
 
         Column (
-            modifier = Modifier.background(color = theme.card, shape = RoundedCornerShape(16.dp)).fillMaxWidth(0.5f).aspectRatio(1f),
+            modifier = Modifier.background(color = theme.card, shape = RoundedCornerShape(16.dp)).width(400.dp).aspectRatio(1f),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center) {
 
