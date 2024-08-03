@@ -23,6 +23,7 @@ kotlin {
             implementation(libs.decompose)
             implementation(libs.decompose.jetbrains)
             implementation(libs.kotlinx.serialization.json)
+            implementation("com.google.code.gson:gson:2.11.0")
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
