@@ -1,5 +1,7 @@
 import androidx.compose.runtime.remember
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Window
+import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
 import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
@@ -10,8 +12,10 @@ fun main() = application {
         RootComponent(DefaultComponentContext(LifecycleRegistry()))
     }
     Window(
+        //state = WindowState(width = 1400.dp, height = 800.dp),
         onCloseRequest = ::exitApplication,
         title = "LocalTicTacToe",
+
     ) {
         App(root)
     }
