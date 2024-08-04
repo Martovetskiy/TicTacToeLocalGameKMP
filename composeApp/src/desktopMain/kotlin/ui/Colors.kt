@@ -8,6 +8,7 @@ data class Theme(
     val card: Color,
     val text: Color,
     val accent: Color,
+    val negativeText: Color = Light,
 
     val name: String = "Undefined",
     )
