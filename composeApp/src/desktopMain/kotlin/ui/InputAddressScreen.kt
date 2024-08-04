@@ -114,6 +114,19 @@ fun InputAddressScreen(component: InputAddressScreenComponent){
                 {
                     Text(component.textButton)
                 }
+
+                Button(
+                    modifier = Modifier.fillMaxWidth()
+                        .height(50.dp).padding(horizontal = 16.dp),
+                    shape = RoundedCornerShape(16.dp),
+                    onClick = {
+                        component.address.value = "localhost"
+                        component.port.value = "9999"
+                        component.goClient()
+                    })
+                {
+                    Text("Debug: ${component.textButton}")
+                }
                 Spacer(Modifier.height(32.dp))
             }
                 }
