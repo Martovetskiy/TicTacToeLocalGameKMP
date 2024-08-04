@@ -41,10 +41,12 @@ fun HostScreen(
                     }
                 )
                 {
-                    Icon(Icons.AutoMirrored.Outlined.ArrowBack, contentDescription = null)
+                    Icon(Icons.AutoMirrored.Outlined.ArrowBack,
+                        contentDescription = null,
+                        tint = theme.negativeText)
                 }
 
-                Text(text = component.serverInfo.value, textAlign = TextAlign.Center)
+                Text(text = component.serverInfo.value, textAlign = TextAlign.Center, color = theme.negativeText)
 
                 IconButton(
                     enabled = false,

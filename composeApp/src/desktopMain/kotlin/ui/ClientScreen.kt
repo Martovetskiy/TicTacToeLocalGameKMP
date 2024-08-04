@@ -37,10 +37,10 @@ fun ClientScreen(component: ClientScreenComponent){
                     }
                 )
                 {
-                    Icon(Icons.AutoMirrored.Outlined.ArrowBack, contentDescription = null)
+                    Icon(Icons.AutoMirrored.Outlined.ArrowBack, contentDescription = null, tint = theme.negativeText)
                 }
 
-                Text(text = component.serverInfo.value)
+                Text(text = component.serverInfo.value, color = theme.negativeText)
 
                 IconButton(
                     enabled = false,

@@ -37,10 +37,12 @@ fun InputAddressScreen(component: InputAddressScreenComponent){
                         }
                     )
                     {
-                        Icon(Icons.AutoMirrored.Outlined.ArrowBack, contentDescription = null)
+                        Icon(Icons.AutoMirrored.Outlined.ArrowBack,
+                            contentDescription = null,
+                            tint = theme.negativeText)
                     }
 
-                    Text(text = component.textButton, textAlign = TextAlign.Center)
+                    Text(text = component.textButton, textAlign = TextAlign.Center, color = theme.negativeText)
 
                     IconButton(
                         enabled = false,
@@ -76,10 +78,10 @@ fun InputAddressScreen(component: InputAddressScreenComponent){
                 },
                   colors = TextFieldDefaults.outlinedTextFieldColors(
                       focusedBorderColor = theme.accent,
-                      cursorColor = Light,
-                      textColor = Light,
+                      cursorColor = theme.negativeText,
+                      textColor = theme.negativeText,
                       backgroundColor = theme.background,
-                      placeholderColor = Light.copy(alpha = 0.6F)
+                      placeholderColor = theme.negativeText.copy(alpha = 0.6F)
                   )
                 )
 
@@ -97,10 +99,10 @@ fun InputAddressScreen(component: InputAddressScreenComponent){
                     },
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         focusedBorderColor = theme.accent,
-                        cursorColor = Light,
-                        textColor = Light,
+                        cursorColor = theme.negativeText,
+                        textColor = theme.negativeText,
                         backgroundColor = theme.background,
-                        placeholderColor = Light.copy(alpha = 0.6F)
+                        placeholderColor = theme.negativeText.copy(alpha = 0.6F)
                     ))
 
                 Button(

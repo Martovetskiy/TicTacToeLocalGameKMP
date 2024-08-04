@@ -46,7 +46,7 @@ fun HomeScreen(component: HomeScreenComponent){
             Button(
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = theme.accent,
-                    contentColor = Light
+                    contentColor = theme.negativeText
                 ),
                 modifier = Modifier.fillMaxWidth(.6f)
                     .height(50.dp),
@@ -62,7 +62,7 @@ fun HomeScreen(component: HomeScreenComponent){
             Button(
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = theme.accent,
-                    contentColor = Light
+                    contentColor = theme.negativeText
                 ),
                 modifier = Modifier.fillMaxWidth(.6f)
                     .height(50.dp),
@@ -86,7 +86,7 @@ fun HomeScreen(component: HomeScreenComponent){
                 modifier = Modifier.align(Alignment.BottomEnd).padding(8.dp),
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = theme.accent,
-                    contentColor = Light
+                    contentColor = theme.negativeText
                 ),
                 onClick = {
                     settings.value = changeTheme(theme)
