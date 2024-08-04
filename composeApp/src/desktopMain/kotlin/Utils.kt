@@ -1,3 +1,5 @@
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.toComposeImageBitmap
 import com.google.gson.Gson
 import models.Settings
 import ui.GreenTheme
@@ -43,4 +45,8 @@ fun changeTheme(currentTheme: Theme) : Settings {
     file.writeText(settingsJson)
 
     return settings
+}
+
+fun imageFromFile(file: File): ImageBitmap {
+    return org.jetbrains.skia.Image.makeFromEncoded(file.readBytes()).toComposeImageBitmap()
 }

@@ -16,8 +16,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import components.HostScreenComponent
-import icons.Circle
-import icons.Cross
+import resources.icons.Circle
+import resources.icons.Cross
 import readSettings
 
 @Composable
