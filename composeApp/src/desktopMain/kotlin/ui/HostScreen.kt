@@ -16,6 +16,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import components.HostScreenComponent
+import icons.Circle
+import icons.Cross
 import readSettings
 
 @Composable
@@ -66,12 +68,13 @@ fun HostScreen(
                         ),
                             onClick = {
                                 component.tap(row, column)
-                            }) {
-
-                            Text(
-                                if (table[row][column] == -1) " " else if(table[row][column] == 1) "X" else "0"
-
-                            )
+                            }
+                        ) {
+                            Icon(
+                                modifier = Modifier.size(if (table[row][column] == 1) 50.dp else 68.dp),
+                                imageVector = if (table[row][column] == 1) Cross else Circle,
+                                contentDescription = null,
+                                tint = if (table[row][column] != -1) theme.accent else Color.Transparent)
                         }
                     }
                 }
