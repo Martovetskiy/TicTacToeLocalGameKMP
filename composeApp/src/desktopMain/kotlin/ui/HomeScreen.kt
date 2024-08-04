@@ -74,7 +74,7 @@ fun HomeScreen(component: HomeScreenComponent){
             }
 
             //TODO: Create onboarding icon
-            //Image(painter = painterResource(Res.drawable.compose_multiplatform), contentDescription = null)
+            //Image(imageVector = Tictactoe, contentDescription = null)
 
             Text(modifier = Modifier.padding(16.dp), text = "Выполнено студентами группы ПиБ-232: Боднарь Степан и Тугбаева Эрика",
                 textAlign = TextAlign.Center,
