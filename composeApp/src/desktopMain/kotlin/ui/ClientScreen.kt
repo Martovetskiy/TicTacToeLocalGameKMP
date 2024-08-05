@@ -52,25 +52,50 @@ fun ClientScreen(component: ClientScreenComponent){
             }
         }
     ) {
-        Column (modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally) {
-            repeat(3) { row ->
-                Row {
-                    repeat(3) { column ->
-                        Button(enabled = (component.isActive.value && table[row][column] == -1),
-                            modifier = Modifier.size(
-                            100.dp
-                        ),
-                            onClick = {
-                                component.tap(row, column)
-                            }) {
+        Box (
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                modifier = Modifier.align(Alignment.TopCenter),
+                text = component.moveInfo.value,
+                color = theme.negativeText
+            )
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                repeat(3) { row ->
+                    Row {
+                        repeat(3) { column ->
+                            Button(
+                                colors = ButtonDefaults.buttonColors(
+                                    backgroundColor = theme.card,
+                                    disabledBackgroundColor = if (
+                                        ((component.winnerComb.value.first.first == row && component.winnerComb.value.first.second == column) ||
+                                                (component.winnerComb.value.second.first == row && component.winnerComb.value.second.second == column) ||
+                                                (component.winnerComb.value.third.first == row && component.winnerComb.value.third.second == column)) &&
+                                        component.isGameOver.value
+                                    )
+                                        Color.Green else
+                                        theme.card
+                                ),
+                                enabled = (component.isActive.value && table[row][column] == -1),
+                                modifier = Modifier
+                                    .size(100.dp)
+                                    .padding(4.dp),
+                                onClick = {
+                                    component.tap(row, column)
+                                }) {
 
-                            Icon(
-                                modifier = Modifier.size(if (table[row][column] == 1) 50.dp else 68.dp),
-                                imageVector = if (table[row][column] == 1) Cross else Circle,
-                                contentDescription = null,
-                                tint = if (table[row][column] != -1) theme.accent else Color.Transparent)
+                                Icon(
+                                    modifier = Modifier.size(if (table[row][column] == 1) 50.dp else 68.dp),
+                                    imageVector = if (table[row][column] == 1) Cross else Circle,
+                                    contentDescription = null,
+                                    tint = if (table[row][column] != -1) theme.accent else Color.Transparent
+                                )
+                            }
                         }
                     }
                 }

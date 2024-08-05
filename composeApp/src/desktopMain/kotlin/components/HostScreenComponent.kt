@@ -18,11 +18,17 @@ class HostScreenComponent(
 
     private val _table: MutableList<MutableList<Int>> = _game.table
     private val _serverInfo: MutableState<String> = _game.serverInfo
+    private val _moveInfo: MutableState<String> = _game.moveLabel
     private val _isActive: MutableState<Boolean> = _game.isActive
+    private val _isGameOver: MutableState<Boolean> = _game.isGameOver
+    private val _winnerComb: MutableState<Triple<Pair<Int, Int>, Pair<Int, Int>, Pair<Int, Int>>> = _game.winnerComb
 
     val table: List<List<Int>> = _table
     val serverInfo = _serverInfo
+    val moveInfo = _moveInfo
     val isActive = _isActive
+    val isGameOver = _isGameOver
+    val winnerComb = _winnerComb
 
     init{
         goServer()
