@@ -2,7 +2,6 @@
 
 package ui
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -15,8 +14,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.graphics.painter.BitmapPainter
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -24,12 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import changeTheme
 import components.HomeScreenComponent
-import imageFromFile
-import localtictactoe.composeapp.generated.resources.Res
-import localtictactoe.composeapp.generated.resources.compose_multiplatform
-import org.jetbrains.compose.resources.imageResource
 import readSettings
-import java.io.File
 
 @Composable
 fun HomeScreen(component: HomeScreenComponent){
@@ -47,7 +39,7 @@ fun HomeScreen(component: HomeScreenComponent){
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center) {
 
-            Text(modifier = Modifier.padding(bottom = 32.dp, top = 16.dp), text = "Крестки-Нолики", style = TextStyle(fontSize = 36.sp,
+            Text(modifier = Modifier.padding(top = 16.dp), text = "Крестки-Нолики", style = TextStyle(fontSize = 36.sp,
                 fontWeight = FontWeight.Bold,
                 color = theme.text))
 
