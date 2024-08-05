@@ -53,7 +53,7 @@ class RootComponent (
                     onGoClient = {address, port ->
                         navigation.pushNew(Configuration.HostScreen(address, port))
                     },
-                    text = "Create Server"
+                    text = "Создать Сервер"
                 )
             )
 
@@ -77,7 +77,7 @@ class RootComponent (
                     onGoClient = {address, port ->
                         navigation.pushNew(Configuration.ClientScreen(address, port))
                     },
-                    text = "Connect"
+                    text = "Подключиться"
                 )
             )
 

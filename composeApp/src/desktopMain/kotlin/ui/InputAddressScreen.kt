@@ -80,7 +80,7 @@ fun InputAddressScreen(component: InputAddressScreenComponent){
                       focusedBorderColor = theme.accent,
                       cursorColor = theme.negativeText,
                       textColor = theme.negativeText,
-                      backgroundColor = theme.background,
+                      backgroundColor = theme.background.copy(alpha = 0.5f),
                       placeholderColor = theme.negativeText.copy(alpha = 0.6F)
                   )
                 )
@@ -101,7 +101,7 @@ fun InputAddressScreen(component: InputAddressScreenComponent){
                         focusedBorderColor = theme.accent,
                         cursorColor = theme.negativeText,
                         textColor = theme.negativeText,
-                        backgroundColor = theme.background,
+                        backgroundColor = theme.background.copy(alpha = 0.5f),
                         placeholderColor = theme.negativeText.copy(alpha = 0.6F)
                     ))
 
@@ -110,12 +110,20 @@ fun InputAddressScreen(component: InputAddressScreenComponent){
                         .height(50.dp).padding(horizontal = 16.dp),
                     shape = RoundedCornerShape(16.dp),
                     enabled = component.port.value.toIntOrNull() != null && (checkIPAddress(component.address.value) || component.address.value == "localhost"),
+                    colors = ButtonDefaults.buttonColors(
+                        backgroundColor = theme.accent,
+                        contentColor = theme.negativeText,
+                        disabledBackgroundColor = Color.Gray,
+                        disabledContentColor = Color.LightGray
+                    ),
                     onClick = {
                     component.goClient()
                 })
                 {
                     Text(component.textButton)
                 }
+
+                Spacer(modifier = Modifier.height(8.dp))
 
                 Button(
                     modifier = Modifier.fillMaxWidth()
