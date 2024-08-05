@@ -1,11 +1,14 @@
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.toComposeImageBitmap
 import com.google.gson.Gson
+import com.google.gson.GsonBuilder
+import com.google.gson.InstanceCreator
 import models.Settings
 import ui.GreenTheme
 import ui.PurpleTheme
 import ui.Theme
 import java.io.File
+import java.io.FileReader
 
 fun checkIPAddress(input: String): Boolean {
     val regex = Regex("^(([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.){3}([01]?\\d\\d?|2[0-4]\\d|25[0-5])$")
@@ -16,16 +19,17 @@ fun readSettings() : Settings
 {
     val file = File("settings.json")
 
-    val settings = if (file.exists()) {
-        val settingsJson = file.readText()
-        Gson().fromJson(settingsJson, Settings::class.java)
+    val settings: Settings = if (file.exists()) {
+        GsonBuilder()
+            .registerTypeAdapter(Theme::class.java, InstanceCreator<Theme> { GreenTheme })
+            .create().fromJson(FileReader(file), Settings::class.java)
     } else {
         Settings(theme = GreenTheme)
     }
 
     if (!file.exists()) {
         val gson = Gson()
-        val settingsJson = gson.toJson(settings)
+        val settingsJson = gson.toJson(Settings(theme = GreenTheme))
         file.writeText(settingsJson)
     }
 
