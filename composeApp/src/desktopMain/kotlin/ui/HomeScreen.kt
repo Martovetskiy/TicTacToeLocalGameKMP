@@ -2,18 +2,17 @@
 
 package ui
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -21,6 +20,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import changeTheme
 import components.HomeScreenComponent
+import localtictactoe.composeapp.generated.resources.Res
+import localtictactoe.composeapp.generated.resources.logo
+import localtictactoe.composeapp.generated.resources.logoSVG
+import org.jetbrains.compose.resources.imageResource
+import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.vectorResource
 import readSettings
 
 @Composable
@@ -42,6 +47,8 @@ fun HomeScreen(component: HomeScreenComponent){
             Text(modifier = Modifier.padding(top = 16.dp), text = "Крестки-Нолики", style = TextStyle(fontSize = 36.sp,
                 fontWeight = FontWeight.Bold,
                 color = theme.text))
+
+            Image(modifier = Modifier.size(120.dp), painter = painterResource(Res.drawable.logo), contentDescription = null)
 
             Button(
                 colors = ButtonDefaults.buttonColors(
@@ -78,6 +85,7 @@ fun HomeScreen(component: HomeScreenComponent){
                 color = theme.text)
 
         }
+
 
             TextButton(
                 modifier = Modifier.align(Alignment.BottomEnd).padding(8.dp),
