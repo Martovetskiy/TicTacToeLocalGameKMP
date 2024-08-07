@@ -32,7 +32,8 @@ import readSettings
 fun HomeScreen(component: HomeScreenComponent){
 
     val settings = remember{ mutableStateOf(readSettings()) }
-    val theme = settings.value.theme
+    val theme = GreenTheme
+        //settings.value.theme
 
     Box (
         modifier = Modifier.fillMaxSize().background(color = theme.background),
@@ -52,7 +53,7 @@ fun HomeScreen(component: HomeScreenComponent){
 
             Button(
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor = theme.accent,
+                    backgroundColor = theme.butColor,
                     contentColor = theme.negativeText
                 ),
                 modifier = Modifier.fillMaxWidth(.6f)
@@ -68,7 +69,7 @@ fun HomeScreen(component: HomeScreenComponent){
 
             Button(
                 colors = ButtonDefaults.buttonColors(
-                    backgroundColor = theme.accent,
+                    backgroundColor = theme.butColor,
                     contentColor = theme.negativeText
                 ),
                 modifier = Modifier.fillMaxWidth(.6f)

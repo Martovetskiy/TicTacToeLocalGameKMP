@@ -2,6 +2,7 @@
 
 package ui
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -18,13 +19,18 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import checkIPAddress
 import components.InputAddressScreenComponent
+import localtictactoe.composeapp.generated.resources.Res
+import localtictactoe.composeapp.generated.resources.logo
+import localtictactoe.composeapp.generated.resources.nulll
+import localtictactoe.composeapp.generated.resources.photo
+import org.jetbrains.compose.resources.painterResource
 import readSettings
 
 @Composable
 fun InputAddressScreen(component: InputAddressScreenComponent){
     val settings = remember{ mutableStateOf(readSettings()) }
-    val theme = settings.value.theme
-    
+    val theme = GreenTheme
+
         Scaffold(
             backgroundColor = theme.background,
             topBar = {
@@ -54,11 +60,17 @@ fun InputAddressScreen(component: InputAddressScreenComponent){
 
                 }
             }
+
+
         ) { innerPadding ->
+            Box(modifier = Modifier.fillMaxSize().padding(innerPadding),
+                contentAlignment = Alignment.Center){
+
             Column (
-                modifier = Modifier.fillMaxSize().padding(innerPadding),
+                modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
+
             ){
             Column (modifier = Modifier.background(color = theme.card, shape = RoundedCornerShape(16.dp)).width(400.dp).aspectRatio(1f),
                 verticalArrangement = Arrangement.Center,
@@ -77,7 +89,7 @@ fun InputAddressScreen(component: InputAddressScreenComponent){
                     component.address.value = it
                 },
                   colors = TextFieldDefaults.outlinedTextFieldColors(
-                      focusedBorderColor = theme.accent,
+                      focusedBorderColor = theme.butColor,
                       cursorColor = theme.negativeText,
                       textColor = theme.negativeText,
                       backgroundColor = theme.background.copy(alpha = 0.5f),
@@ -98,7 +110,7 @@ fun InputAddressScreen(component: InputAddressScreenComponent){
                         component.port.value = it
                     },
                     colors = TextFieldDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = theme.accent,
+                        focusedBorderColor = theme.butColor,
                         cursorColor = theme.negativeText,
                         textColor = theme.negativeText,
                         backgroundColor = theme.background.copy(alpha = 0.5f),
@@ -107,11 +119,11 @@ fun InputAddressScreen(component: InputAddressScreenComponent){
 
                 Button(
                     modifier = Modifier.fillMaxWidth()
-                        .height(50.dp).padding(horizontal = 16.dp),
+                        .height(55.dp).padding(horizontal = 55.dp),
                     shape = RoundedCornerShape(16.dp),
                     enabled = component.port.value.toIntOrNull() != null && (checkIPAddress(component.address.value) || component.address.value == "localhost"),
                     colors = ButtonDefaults.buttonColors(
-                        backgroundColor = theme.accent,
+                        backgroundColor = theme.butColor,
                         contentColor = theme.negativeText,
                         disabledBackgroundColor = Color.Gray,
                         disabledContentColor = Color.LightGray
@@ -123,22 +135,33 @@ fun InputAddressScreen(component: InputAddressScreenComponent){
                     Text(component.textButton)
                 }
 
-                Spacer(modifier = Modifier.height(8.dp))
+//                Spacer(modifier = Modifier.height(8.dp))
 
-                Button(
-                    modifier = Modifier.fillMaxWidth()
-                        .height(50.dp).padding(horizontal = 16.dp),
-                    shape = RoundedCornerShape(16.dp),
-                    onClick = {
-                        component.address.value = "localhost"
-                        component.port.value = "9999"
-                        component.goClient()
-                    })
-                {
-                    Text("Debug: ${component.textButton}")
-                }
-                Spacer(Modifier.height(32.dp))
+//                Button(
+//                    modifier = Modifier.fillMaxWidth()
+//                        .height(50.dp).padding(horizontal = 16.dp),
+//                    shape = RoundedCornerShape(16.dp),
+//                    onClick = {
+//                        component.address.value = "localhost"
+//                        component.port.value = "9999"
+//                        component.goClient()
+//                    })
+//                {
+//                    Text("Debug: ${component.textButton}")
+//                }
+//                Spacer(Modifier.height(32.dp))
             }
                 }
+                Image(
+                    modifier = Modifier.align(Alignment.TopStart).size(490.dp),
+                    painter = painterResource(Res.drawable.photo),
+                    contentDescription = null
+                )
+                Image(
+                    modifier = Modifier.align(Alignment.TopEnd).size(400.dp),
+                    painter = painterResource(Res.drawable.nulll),
+                    contentDescription = null
+                )
+            }
         }
     }

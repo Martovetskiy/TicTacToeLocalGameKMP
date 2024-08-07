@@ -11,6 +11,7 @@ data class Theme(
     val negativeText: Color = Light,
 
     val name: String = "Undefined",
+    val butColor: Color
     )
 
 //val Dark = Color(0xFF262626)
@@ -26,8 +27,9 @@ val Carbon = Color(0xFF251D3E)
 val DarknessGreen = Color(0xFF117C6F)
 val DarkGreen =  Color(0xFF11533E)
 //val Green = Color(0xFF289CBE)
-//val SoftGreen = Color(0xFF2FC4B2)
-val LightGreen = Color(0xFF8DE5DB)
+val SoftGreen = Color(0xFF2FC4B2)
+val LightGreen = Color(0xFFC0DFD3)
+val CarbonGreen = Color(0xFF165024)
 //val WhiteGreen = Color(0xFFB2F0E8)
 
 val Morena = Color(0xFF1F7062)
@@ -38,7 +40,8 @@ val PurpleTheme = Theme(
     card = LightPurple,
     text = SkyColor,
     accent = Carbon,
-    name = "Киберпанк"
+    name = "Киберпанк",
+    butColor = Carbon
 )
 
 val GreenTheme =  Theme(
@@ -46,6 +49,7 @@ val GreenTheme =  Theme(
     card = LightGreen,
     text = DarkGreen,
     accent = Morena,
-    name = "Летняя"
+    name = "Летняя",
+    butColor = CarbonGreen
 )
 
