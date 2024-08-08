@@ -8,7 +8,6 @@ import java.io.PrintWriter
 import java.net.InetAddress
 import java.net.ServerSocket
 import java.net.Socket
-import kotlin.jvm.Throws
 
 class GameCore (
     private val onServerClose: () -> Unit = {},
@@ -118,7 +117,6 @@ class GameCore (
 
     private fun changeTable(x: Int, y: Int, figure: Int) {
         table[x][y] = figure
-        println(table)
     }
 
     fun hostGame(host: String = "localhost", port: Int){
@@ -148,7 +146,6 @@ class GameCore (
             client = Socket(host, port)
         }
         catch (e: Exception) {
-            println(e.message)
             onClientClose()
             return
         }
