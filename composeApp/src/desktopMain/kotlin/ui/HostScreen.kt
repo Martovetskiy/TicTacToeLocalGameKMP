@@ -79,7 +79,8 @@ fun HostScreen(
                                     ((component.winnerComb.value.first.first == row && component.winnerComb.value.first.second == column) ||
                                     (component.winnerComb.value.second.first == row && component.winnerComb.value.second.second == column) ||
                                     (component.winnerComb.value.third.first == row && component.winnerComb.value.third.second == column)) &&
-                                    component.isGameOver.value
+                                    component.isGameOver.value &&
+                                    (component.winnerComb.value.first != component.winnerComb.value.third)
                                     )
                                     Color.Green else
                                     theme.card
