@@ -4,7 +4,6 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Clear
-import androidx.compose.material.icons.filled.Share
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -13,7 +12,6 @@ import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.*
 import com.arkivanov.decompose.DefaultComponentContext
-import com.arkivanov.decompose.router.stack.active
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 import localtictactoe.composeapp.generated.resources.Res
 import localtictactoe.composeapp.generated.resources.expand
