@@ -1,12 +1,11 @@
-import androidx.compose.ui.graphics.ImageBitmap
-import androidx.compose.ui.graphics.toComposeImageBitmap
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
-import com.google.gson.InstanceCreator
 import models.Settings
+import models.SettingsSerializer
 import ui.GreenTheme
 import ui.PurpleTheme
 import ui.Theme
+import ui.ThemeSerializer
 import java.io.File
 import java.io.FileReader
 
@@ -19,23 +18,28 @@ fun readSettings() : Settings
 {
     val file = File("settings.json")
 
-    val settings: Settings = if (file.exists()) {
-        GsonBuilder()
-            .registerTypeAdapter(Theme::class.java, InstanceCreator<Theme> { GreenTheme })
-            .create().fromJson(FileReader(file), Settings::class.java)
-    } else {
-        Settings(theme = GreenTheme)
-    }
+    var settings: Settings
 
-    if (!file.exists()) {
-        val gson = Gson()
-        val settingsJson = gson.toJson(Settings(theme = GreenTheme))
-        file.writeText(settingsJson)
+    val gson = GsonBuilder()
+        .registerTypeAdapter(Theme::class.java, ThemeSerializer())
+        .registerTypeAdapter(Settings::class.java, SettingsSerializer())
+        .create()
+
+    if (file.exists()) {
+        FileReader(file).use {
+            settings =  gson.fromJson(it, Settings::class.java)
+        }
+    }
+    else
+    {
+        file.writeText(
+            Gson().toJson(Settings(GreenTheme))
+        )
+        settings = Settings(GreenTheme)
     }
 
     return settings
 }
-
 
 fun changeTheme(currentTheme: Theme) : Settings {
     val listThemes: List<Theme> = listOf(GreenTheme, PurpleTheme)
@@ -43,14 +47,12 @@ fun changeTheme(currentTheme: Theme) : Settings {
 
     val settings = Settings(theme = listThemes[indexNextTheme])
     val gson = Gson()
-    val settingsJson = gson.toJson(settings)
 
-    val file = File("settings.json")
-    file.writeText(settingsJson)
+    File("settings.json").writeText(
+        gson.toJson(
+            settings
+        )
+    )
 
     return settings
-}
-
-fun imageFromFile(file: File): ImageBitmap {
-    return org.jetbrains.skia.Image.makeFromEncoded(file.readBytes()).toComposeImageBitmap()
 }
