@@ -1,7 +1,16 @@
 package ui
 
 import androidx.compose.ui.graphics.Color
+import com.google.gson.JsonElement
+import com.google.gson.JsonSerializationContext
+import com.google.gson.JsonSerializer
+import java.lang.reflect.Type
 
+class ThemeSerializer : JsonSerializer<Theme?> {
+    override fun serialize(src: Theme?, typeOfSrc: Type?, context: JsonSerializationContext?): JsonElement? {
+        return null
+    }
+}
 
 data class Theme(
     val background: Color,
@@ -9,10 +18,20 @@ data class Theme(
     val text: Color,
     val accent: Color,
     val negativeText: Color = Light,
-
     val name: String = "Undefined",
     val butColor: Color
     )
+{
+    constructor() : this(
+        background = Color.Black,
+        card = Color.Black,
+        text = Color.Black,
+        accent = Color.Black,
+        negativeText = Color.Black,
+        name = "Undefined",
+        butColor = Color.Black
+    )
+}
 
 //val Dark = Color(0xFF262626)
 val Light = Color(0xFFFFFFFF)
@@ -27,7 +46,7 @@ val Carbon = Color(0xFF251D3E)
 val DarknessGreen = Color(0xFF117C6F)
 val DarkGreen =  Color(0xFF11533E)
 //val Green = Color(0xFF289CBE)
-val SoftGreen = Color(0xFF2FC4B2)
+//val SoftGreen = Color(0xFF2FC4B2)
 val LightGreen = Color(0xFFC0DFD3)
 val CarbonGreen = Color(0xFF165024)
 //val WhiteGreen = Color(0xFFB2F0E8)
@@ -40,7 +59,7 @@ val PurpleTheme = Theme(
     card = LightPurple,
     text = SkyColor,
     accent = Carbon,
-    name = "Киберпанк",
+    name = "Cyberpunk",
     butColor = Carbon
 )
 
@@ -49,7 +68,7 @@ val GreenTheme =  Theme(
     card = LightGreen,
     text = DarkGreen,
     accent = Morena,
-    name = "Летняя",
+    name = "Summer",
     butColor = CarbonGreen
 )
 
