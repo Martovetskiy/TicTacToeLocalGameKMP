@@ -4,6 +4,8 @@ package ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
@@ -165,7 +167,20 @@ fun InputAddressScreen(component: InputAddressScreenComponent){
                         modifier = Modifier
                             .align(Alignment.BottomEnd)
                             .size(96.dp)
-                            .padding(8.dp),
+                            .padding(8.dp)
+                            .clickable(
+                                onClick = {
+                                    component.secretCounter.value++
+                                    if (component.secretCounter.value >= 3){
+                                        component.address.value = "localhost"
+                                        component.port.value = "9999"
+                                        component.goClient()
+                                    }
+                                },
+                                interactionSource = remember { MutableInteractionSource() },
+                                indication = null
+                            ),
+
                         painter = painterResource(Res.drawable.nulll),
                         contentDescription = null
                     )
