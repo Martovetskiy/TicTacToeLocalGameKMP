@@ -16,6 +16,8 @@ class GameCore (
     private val you = mutableIntStateOf(1)
     private val opponent = mutableIntStateOf(0)
     private val _winner: MutableIntState = mutableIntStateOf(-1)
+    private val _opponentNickname: MutableState<String> = mutableStateOf("")
+    private val _youNickname: MutableState<String> = mutableStateOf("")
 
     private lateinit var server: ServerSocket
     private lateinit var client: Socket
@@ -44,6 +46,9 @@ class GameCore (
     val isActive: MutableState<Boolean> = mutableStateOf(false)
     val isGameOver: MutableState<Boolean> = mutableStateOf(false)
 
+    fun changeMyNick(nickname: String){
+        _youNickname.value = nickname
+    }
 
     private fun checkWinner() : Boolean {
         for (row in 0..2) {
@@ -129,11 +134,17 @@ class GameCore (
         }
         serverInfo.value = "Сервер: $host:$port\nОжидание противника..."
         client = server.accept()
-        serverInfo.value = "Противник: ${client.remoteSocketAddress}"
-        moveLabel.value = "Ваш ход"
 
         sender = PrintWriter(client.getOutputStream(), true)
         reader = BufferedReader(InputStreamReader(client.getInputStream()))
+
+        _opponentNickname.value = reader.readLine()
+        sender.println(_youNickname.value)
+
+        serverInfo.value = "Противник: ${_opponentNickname.value}"
+        moveLabel.value = "Ваш ход"
+
+
 
         you.value = 1
         opponent.value = 0
@@ -149,10 +160,16 @@ class GameCore (
             onClientClose()
             return
         }
-        serverInfo.value = "Противник: ${client.remoteSocketAddress}"
-        moveLabel.value = "Ожидание хода противника"
+
         sender = PrintWriter(client.getOutputStream(), true)
         reader = BufferedReader(InputStreamReader(client.getInputStream()))
+
+        sender.println(_youNickname.value)
+        _opponentNickname.value = reader.readLine()
+
+        serverInfo.value = "Противник: ${_opponentNickname.value}"
+        moveLabel.value = "Ожидание хода ${_opponentNickname.value}"
+
 
         initClient()
     }
@@ -161,18 +178,18 @@ class GameCore (
         sender.println("$x, $y")
         changeTable(x, y, you.value)
         if (checkWinner()){
-           serverInfo.value = if (_winner.value == -1) "Ничья" else "Победитель: ${if (_winner.value == you.value) "Вы" else "Противник"}"
+           serverInfo.value = if (_winner.value == -1) "Ничья" else "Победитель: ${if (_winner.value == you.value) _youNickname.value else _opponentNickname.value}"
             moveLabel.value = ""
             return
         }
         else{
-            moveLabel.value = "Ожидание хода противника"
+            moveLabel.value = "Ожидание хода ${_opponentNickname.value}"
         }
         isActive.value = false
         val receive = reader.readLine().split(", ")
         changeTable(receive[0].toInt(), receive[1].toInt(), opponent.value)
         if (checkWinner()){
-            serverInfo.value = if (_winner.value == -1) "Ничья" else "Победитель: ${if (_winner.value == you.value) "Вы" else "Противник"}"
+            serverInfo.value = if (_winner.value == -1) "Ничья" else "Победитель: ${if (_winner.value == you.value)  _youNickname.value else _opponentNickname.value}"
             moveLabel.value = ""
             return
         }

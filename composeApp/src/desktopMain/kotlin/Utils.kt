@@ -56,3 +56,19 @@ fun changeTheme(currentTheme: Theme) : Settings {
 
     return settings
 }
+
+fun changeNickname(currentNickname: String) : Settings {
+    val settings = readSettings()
+    settings.nickname = currentNickname
+
+    val gson = Gson()
+
+    File("settings.json").writeText(
+        gson.toJson(
+            settings
+        )
+    )
+
+    return settings
+
+}

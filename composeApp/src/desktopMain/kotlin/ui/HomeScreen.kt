@@ -4,22 +4,29 @@ package ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.Button
-import androidx.compose.material.ButtonDefaults
-import androidx.compose.material.Text
-import androidx.compose.material.TextButton
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.onPreviewKeyEvent
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.SemanticsProperties.Role
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import changeNickname
 import changeTheme
 import components.HomeScreenComponent
 import localtictactoe.composeapp.generated.resources.Res
@@ -32,14 +39,28 @@ fun HomeScreen(component: HomeScreenComponent){
 
     val settings = remember{ mutableStateOf(readSettings()) }
     val theme = settings.value.theme
+    val nickname = component.nickname
+
+    val focus = LocalFocusManager.current
 
     Box (
-        modifier = Modifier.fillMaxSize().background(color = theme.background),
+        modifier = Modifier
+            .fillMaxSize()
+            .background(
+                color = theme.background
+            ),
         contentAlignment = Alignment.Center
     ) {
 
         Column (
-            modifier = Modifier.background(color = theme.card, shape = RoundedCornerShape(16.dp)).width(400.dp).aspectRatio(1f),
+            modifier = Modifier
+                .background(
+                    color = theme.card,
+                    shape = RoundedCornerShape(16.dp)
+                )
+                .width(400.dp)
+                .aspectRatio(1f),
+
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center) {
 
@@ -50,6 +71,7 @@ fun HomeScreen(component: HomeScreenComponent){
             Image(modifier = Modifier.size(120.dp), painter = painterResource(Res.drawable.logo), contentDescription = null)
 
             Button(
+                enabled = component.nickname.value.isNotEmpty(),
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = theme.butColor,
                     contentColor = theme.negativeText
@@ -66,6 +88,7 @@ fun HomeScreen(component: HomeScreenComponent){
             Spacer(modifier = Modifier.height(8.dp))
 
             Button(
+                enabled = component.nickname.value.isNotEmpty(),
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = theme.butColor,
                     contentColor = theme.negativeText
@@ -100,6 +123,41 @@ fun HomeScreen(component: HomeScreenComponent){
                 Text(text = theme.name)
                 }
             }
+
+        OutlinedTextField(
+            isError = component.nickname.value.isEmpty(),
+            modifier = Modifier
+                .fillMaxWidth(0.2f)
+                .align(Alignment.TopStart)
+                .padding(horizontal = 8.dp)
+                .padding(top = 8.dp)
+                .onPreviewKeyEvent {
+                    if (it.key == Key.Enter){
+                        focus.clearFocus()
+                        true
+                    }
+                    else{
+                        false
+                    }
+                },
+            singleLine = true,
+            placeholder = { Text(text = "Никнейм") },
+            maxLines = 1,
+            shape = RoundedCornerShape(16.dp),
+            value = nickname.value,
+            onValueChange = {
+                component.nickname.value= it
+                component.saveNick()
+            },
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                focusedBorderColor = theme.butColor,
+                cursorColor = theme.negativeText,
+                textColor = theme.negativeText,
+                backgroundColor = theme.background.copy(alpha = 0.5f),
+                placeholderColor = theme.negativeText.copy(alpha = 0.6F)
+            )
+        )
+
 
     }
 

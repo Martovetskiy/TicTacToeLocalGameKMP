@@ -6,6 +6,7 @@ import core.GameCore
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import readSettings
 
 
 class ClientScreenComponent(
@@ -36,6 +37,7 @@ class ClientScreenComponent(
 
     @OptIn(DelicateCoroutinesApi::class)
     private fun runClient(){
+        _game.changeMyNick(readSettings().nickname)
         GlobalScope.launch{ _game.connectGame(address, port) }
     }
 

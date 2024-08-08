@@ -15,8 +15,11 @@ class SettingsSerializer : JsonSerializer<Settings?> {
 }
 
 data class Settings (
-    val theme: Theme
+    val theme: Theme,
+    var nickname: String = "Player"
 )
 {
-    constructor() : this( theme = GreenTheme)
+    constructor() : this(
+        theme = GreenTheme,
+        nickname = "Player")
 }

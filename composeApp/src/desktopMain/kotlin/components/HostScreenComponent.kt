@@ -6,6 +6,7 @@ import core.GameCore
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import readSettings
 
 class HostScreenComponent(
     componentContext: ComponentContext,
@@ -31,6 +32,7 @@ class HostScreenComponent(
     val winnerComb = _winnerComb
 
     init{
+        _game.changeMyNick(readSettings().nickname)
         goServer()
     }
 
