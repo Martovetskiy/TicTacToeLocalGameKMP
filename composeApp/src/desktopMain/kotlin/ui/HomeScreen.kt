@@ -4,6 +4,7 @@ package ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.*
@@ -14,9 +15,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.key
 import androidx.compose.ui.input.key.onPreviewKeyEvent
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -55,14 +58,20 @@ fun HomeScreen(component: HomeScreenComponent){
         contentAlignment = Alignment.Center
     ) {
 
+        Image(modifier = Modifier.fillMaxSize(),
+            painter = painterResource(theme.imageBack),
+            contentDescription = null,
+            contentScale = ContentScale.FillBounds)
+
         Column (
             modifier = Modifier
                 .background(
-                    color = theme.card,
+                    color = Light.copy(alpha = 0.8f),
                     shape = RoundedCornerShape(16.dp)
                 )
-                .width(400.dp)
-                .aspectRatio(1f),
+                .width(500.dp)
+                .aspectRatio(1f)
+                .border(width = 2.dp, color = theme.card, shape = RoundedCornerShape(16.dp)),
 
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center) {

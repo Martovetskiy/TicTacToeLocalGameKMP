@@ -4,6 +4,10 @@ import androidx.compose.ui.graphics.Color
 import com.google.gson.JsonElement
 import com.google.gson.JsonSerializationContext
 import com.google.gson.JsonSerializer
+import localtictactoe.composeapp.generated.resources.Res
+import localtictactoe.composeapp.generated.resources.greenBack
+import localtictactoe.composeapp.generated.resources.purpleBack
+import org.jetbrains.compose.resources.DrawableResource
 import java.lang.reflect.Type
 
 class ThemeSerializer : JsonSerializer<Theme?> {
@@ -19,7 +23,9 @@ data class Theme(
     val accent: Color,
     val negativeText: Color = Light,
     val name: String = "Undefined",
-    val butColor: Color
+    val butColor: Color,
+
+    val imageBack: DrawableResource = Res.drawable.greenBack
     )
 {
     constructor() : this(
@@ -29,7 +35,9 @@ data class Theme(
         accent = Color.Black,
         negativeText = Color.Black,
         name = "Undefined",
-        butColor = Color.Black
+        butColor = Color.Black,
+
+        imageBack = Res.drawable.greenBack
     )
 }
 
@@ -59,8 +67,10 @@ val PurpleTheme = Theme(
     card = LightPurple,
     text = SkyColor,
     accent = Carbon,
-    name = "Cyberpunk",
-    butColor = Carbon
+    name = "Purple",
+    butColor = Carbon,
+
+    imageBack = Res.drawable.purpleBack
 )
 
 val GreenTheme =  Theme(
@@ -69,6 +79,8 @@ val GreenTheme =  Theme(
     text = DarkGreen,
     accent = Morena,
     name = "Summer",
-    butColor = CarbonGreen
+    butColor = CarbonGreen,
+
+    imageBack = Res.drawable.greenBack
 )
 
