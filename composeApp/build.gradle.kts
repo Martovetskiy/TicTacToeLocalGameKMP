@@ -24,11 +24,10 @@ kotlin {
             implementation(libs.decompose.jetbrains)
             implementation(libs.kotlinx.serialization.json)
             implementation("com.google.code.gson:gson:2.11.0")
+
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
-            implementation(libs.kotlinx.serialization.json)
-            implementation("com.google.code.gson:gson:2.11.0")
         }
     }
 }
@@ -40,8 +39,8 @@ compose.desktop {
 
         nativeDistributions {
             targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Deb)
-            packageName = "org.example.project"
-            packageVersion = "1.0.0"
+            packageName = "org.oneplusone.tictactoe"
+            packageVersion = "1.0.1"
 
             windows{
                 iconFile.set(project.file("resources/logo.ico"))
