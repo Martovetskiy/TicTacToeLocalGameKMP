@@ -20,7 +20,6 @@ import androidx.compose.ui.unit.dp
 import checkIPAddress
 import components.InputAddressScreenComponent
 import localtictactoe.composeapp.generated.resources.Res
-import localtictactoe.composeapp.generated.resources.logo
 import localtictactoe.composeapp.generated.resources.nulll
 import localtictactoe.composeapp.generated.resources.photo
 import org.jetbrains.compose.resources.painterResource
@@ -29,7 +28,7 @@ import readSettings
 @Composable
 fun InputAddressScreen(component: InputAddressScreenComponent){
     val settings = remember{ mutableStateOf(readSettings()) }
-    val theme = GreenTheme
+    val theme = settings.value.theme
 
         Scaffold(
             backgroundColor = theme.background,
@@ -63,77 +62,80 @@ fun InputAddressScreen(component: InputAddressScreenComponent){
 
 
         ) { innerPadding ->
-            Box(modifier = Modifier.fillMaxSize().padding(innerPadding),
-                contentAlignment = Alignment.Center){
-
             Column (
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.fillMaxSize().padding(innerPadding),
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
 
-            ){
-            Column (modifier = Modifier.background(color = theme.card, shape = RoundedCornerShape(16.dp)).width(400.dp).aspectRatio(1f),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally) {
+            ) {
+                Box(modifier = Modifier.width(400.dp).aspectRatio(1f),
+                    contentAlignment = Alignment.Center){
+                Column(
+                    modifier = Modifier.background(color = theme.card, shape = RoundedCornerShape(16.dp)).width(400.dp)
+                        .aspectRatio(1f),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
 
-                OutlinedTextField(
-                    isError = (!checkIPAddress(component.address.value) && component.address.value != "localhost") && component.address.value.isNotEmpty(),
-                    modifier = Modifier.fillMaxWidth()
-                        .padding(top = 32.dp, bottom = 4.dp).padding(horizontal = 16.dp).height(56.dp),
-                    singleLine = true,
-                    maxLines = 1,
-                    placeholder = { Text(text = "IP адрес") },
-                    shape = RoundedCornerShape(16.dp),
-                    value = component.address.value,
-                    onValueChange = {
-                    component.address.value = it
-                },
-                  colors = TextFieldDefaults.outlinedTextFieldColors(
-                      focusedBorderColor = theme.butColor,
-                      cursorColor = theme.negativeText,
-                      textColor = theme.negativeText,
-                      backgroundColor = theme.background.copy(alpha = 0.5f),
-                      placeholderColor = theme.negativeText.copy(alpha = 0.6F)
-                  )
-                )
+                    OutlinedTextField(
+                        isError = (!checkIPAddress(component.address.value) && component.address.value != "localhost") && component.address.value.isNotEmpty(),
+                        modifier = Modifier.fillMaxWidth()
+                            .padding(top = 32.dp, bottom = 4.dp).padding(horizontal = 16.dp).height(56.dp),
+                        singleLine = true,
+                        maxLines = 1,
+                        placeholder = { Text(text = "IP адрес") },
+                        shape = RoundedCornerShape(16.dp),
+                        value = component.address.value,
+                        onValueChange = {
+                            component.address.value = it
+                        },
+                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                            focusedBorderColor = theme.butColor,
+                            cursorColor = theme.negativeText,
+                            textColor = theme.negativeText,
+                            backgroundColor = theme.background.copy(alpha = 0.5f),
+                            placeholderColor = theme.negativeText.copy(alpha = 0.6F)
+                        )
+                    )
 
-                OutlinedTextField(
-                    isError = component.port.value.toIntOrNull() == null && component.port.value.isNotEmpty(),
-                    modifier = Modifier.fillMaxWidth()
-                        .padding(top = 4.dp, bottom = 16.dp).height(56.dp).padding(horizontal = 16.dp),
-                    singleLine = true,
-                    placeholder = { Text(text = "Порт") },
-                    maxLines = 1,
-                    shape = RoundedCornerShape(16.dp),
-                    value = component.port.value,
-                    onValueChange = {
-                        component.port.value = it
-                    },
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
-                        focusedBorderColor = theme.butColor,
-                        cursorColor = theme.negativeText,
-                        textColor = theme.negativeText,
-                        backgroundColor = theme.background.copy(alpha = 0.5f),
-                        placeholderColor = theme.negativeText.copy(alpha = 0.6F)
-                    ))
+                    OutlinedTextField(
+                        isError = component.port.value.toIntOrNull() == null && component.port.value.isNotEmpty(),
+                        modifier = Modifier.fillMaxWidth()
+                            .padding(top = 4.dp, bottom = 16.dp).height(56.dp).padding(horizontal = 16.dp),
+                        singleLine = true,
+                        placeholder = { Text(text = "Порт") },
+                        maxLines = 1,
+                        shape = RoundedCornerShape(16.dp),
+                        value = component.port.value,
+                        onValueChange = {
+                            component.port.value = it
+                        },
+                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                            focusedBorderColor = theme.butColor,
+                            cursorColor = theme.negativeText,
+                            textColor = theme.negativeText,
+                            backgroundColor = theme.background.copy(alpha = 0.5f),
+                            placeholderColor = theme.negativeText.copy(alpha = 0.6F)
+                        )
+                    )
 
-                Button(
-                    modifier = Modifier.fillMaxWidth()
-                        .height(55.dp).padding(horizontal = 55.dp),
-                    shape = RoundedCornerShape(16.dp),
-                    enabled = component.port.value.toIntOrNull() != null && (checkIPAddress(component.address.value) || component.address.value == "localhost"),
-                    colors = ButtonDefaults.buttonColors(
-                        backgroundColor = theme.butColor,
-                        contentColor = theme.negativeText,
-                        disabledBackgroundColor = Color.Gray,
-                        disabledContentColor = Color.LightGray
-                    ),
-                    onClick = {
-                    component.goClient()
-                })
-                {
-                    Text(component.textButton)
-                }
+                    Button(
+                        modifier = Modifier.fillMaxWidth()
+                            .height(55.dp).padding(horizontal = 55.dp),
+                        shape = RoundedCornerShape(16.dp),
+                        enabled = component.port.value.toIntOrNull() != null && (checkIPAddress(component.address.value) || component.address.value == "localhost"),
+                        colors = ButtonDefaults.buttonColors(
+                            backgroundColor = theme.butColor,
+                            contentColor = theme.negativeText,
+                            disabledBackgroundColor = Color.Gray,
+                            disabledContentColor = Color.LightGray
+                        ),
+                        onClick = {
+                            component.goClient()
+                        })
+                    {
+                        Text(component.textButton)
+                    }
 
 //                Spacer(modifier = Modifier.height(8.dp))
 
@@ -150,18 +152,25 @@ fun InputAddressScreen(component: InputAddressScreenComponent){
 //                    Text("Debug: ${component.textButton}")
 //                }
 //                Spacer(Modifier.height(32.dp))
-            }
                 }
-                Image(
-                    modifier = Modifier.align(Alignment.TopStart).size(490.dp),
-                    painter = painterResource(Res.drawable.photo),
-                    contentDescription = null
-                )
-                Image(
-                    modifier = Modifier.align(Alignment.TopEnd).size(400.dp),
-                    painter = painterResource(Res.drawable.nulll),
-                    contentDescription = null
-                )
+                    Image(
+                        modifier = Modifier
+                            .align(Alignment.TopStart)
+                            .size(96.dp)
+                            .padding(8.dp),
+                        painter = painterResource(Res.drawable.photo),
+                        contentDescription = null
+                    )
+                    Image(
+                        modifier = Modifier
+                            .align(Alignment.BottomEnd)
+                            .size(96.dp)
+                            .padding(8.dp),
+                        painter = painterResource(Res.drawable.nulll),
+                        contentDescription = null
+                    )
+            }
+
             }
         }
     }
